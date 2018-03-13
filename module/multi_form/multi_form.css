@@ -1,31 +1,15 @@
-body {
-  font-family: Lucida Sans, Arial, Helvetica, Sans-Serif;
-  font-size: 13px;
-  margin: 20px;
-}
-
-/* #main {
-  width: 100%;
-  margin: 0px auto;
-  border: solid 1px #b2b3b5;
-  -moz-border-radius: 10px;
-  padding: 20px;
-  background-color: #f6f6f6;
-}
-
-#header {
-  text-align: center;
-  border-bottom: solid 1px #b2b3b5;
-  margin: 0 0 20px 0;
-} */
-
 .container {
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+form {
+  /* max-width: 100%; */
+}
 fieldset {
   border: none;
-  width: 320px;
+  width: 100%;
+  padding: 1em;
 }
 
 legend {
@@ -42,7 +26,7 @@ label {
 }
 
 input[type=text], input[type=password] {
-  width: 300px;
+  width: 100%;
   padding: 5px;
   border: solid 1px #000;
 }
@@ -90,15 +74,3 @@ input[type=text], input[type=password] {
 #steps li.current {
   color: #000;
 }
-
-/* #makeWizard {
-  background-color: #b0232a;
-  color: #fff;
-  padding: 5px 10px;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-#makeWizard:hover {
-  background-color: #000;
-} */
