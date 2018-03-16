@@ -5,70 +5,76 @@
   }
 */
 var config = {
-  formName:"",
+  formName:"SignupForm",
   submitBtnName: "SaveAccount"
 }
+
 var multiForm = (function(config){
 
-
-  var element = this,
+  var formName = config.formName,
     container = document.querySelector(".container"),
     steps = document.querySelectorAll("fieldset"),
     count = steps.length,
-    submitBtnID = "#" + config.submitBtnName,
-    submitBtnEl = document.querySelector(submitBtnID),
+    submitBtnName = config.submitBtnName,
+    submitBtnEl = document.querySelector("#" + submitBtnName),
     wrapper, commands, legend, legendText,stepsUL;
 
+    formNameEl = document.querySelector("#" + formName)
 
-    hide(submitBtnEl);
-
-    container.insertAdjacentHTML('beforebegin', "<ul id='steps'></ul>");
+    // insert 'steps' ul at top of container
+    container.insertAdjacentHTML('afterbegin', "<ul id='steps'></ul>");
 
 
     Array.prototype.forEach.call(steps, function(el, i){
 
+      // wrap each fieldset with 'steps' div
       wrapper = document.createElement('div');
       wrapper.id = "step" + i;
-      wrap(el, wrapper);
+      el.parentNode.appendChild(wrapper);
+      wrapper.appendChild(el)
+      //wrap(el, wrapper);
 
+      // append 'commands' paragraph to the bottom of each fieldset
       commands = document.createElement("p");
       commands.id = "step" + i + "commands";
       el.appendChild(commands);
 
+      // get legend label
       legend = el.querySelector("legend");
       legendText = legend.innerHTML;
 
+      // get 'steps' ul element
       stepsUL = document.querySelector("#steps");
+
+      // insert 'stepDesc' li into 'steps' ul element
       stepsUL.insertAdjacentHTML("beforeend", "<li id='stepDesc" + i + "'>Step " + (i + 1) + "<span>" + legendText + "</span></li>");
 
+      // routine for creating prev/next buttons
       if (i == 0) {
         createNextButton(i);
         selectStep(i);
       } else if (i == count - 1) {
         var stepEl = document.querySelector("#step" + i);
         hide(stepEl);
-
-        // $("#step" + i).hide();
-        // createPrevButton(i);
+        createPrevButton(i);
       } else {
         var stepEl = document.querySelector("#step" + i);
         hide(stepEl);
-
         createPrevButton(i);
         createNextButton(i);
       }
 
-
-
-
     });
 
+    // inset submit button at end of formNam
+    // formNameEl.insertAdjacentHTML("beforeend", '<input id="'+ submitBtnName +'" class="right" type="button" value="Submit form" />');
+
+
     // functions
-
-
     function createNextButton(i) {
       var stepName = "step" + i;
       var stepNameNext = "step" + (i + 1);
+
       document.querySelector("#" + stepName + "commands").insertAdjacentHTML("beforeend","<a href='#' id='" + stepName + "Next' class='next'>Next ></a>");
 
       document.querySelector("#" + stepName + "Next").addEventListener("click", function(e){
@@ -79,8 +85,8 @@ var multiForm = (function(config){
         show( stepNameNextEl );
 
         if (i + 2 == count){
-          console.log("add submit button")
-        // $(submmitButtonName).show();
+          console.log(submitBtnEl)
+          show(submitBtnEl);
         }
 
         selectStep(i + 1);
@@ -114,18 +120,15 @@ var multiForm = (function(config){
 
           hide(stepNameEl);
           show(stepNamePrevEl);
-         selectStep(i - 1);
-      })
+          if (submitBtnEl){
+              hide(submitBtnEl); // TODO: fix this
+          }
 
-      // $("#" + stepName + "Prev").bind("click", function(e) {
-      //   $("#" + stepName).hide();
-      //   $("#step" + (i - 1)).show();
-      //   $(submmitButtonName).hide();
-      //   selectStep(i - 1);
-      // });
+          selectStep(i - 1);
+      })
     }
 
-
+    // helper functions
     function addClass(el, className){
       if (el.classList){
         el.classList.add(className);
@@ -135,13 +138,11 @@ var multiForm = (function(config){
     }
 
     function removeClass(el, className) {
-console.log("classList: " + el.classList);
       if (el.classList){
         el.classList.remove(className);
       } else {
         el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
       }
-
     }
 
     function hide(el){
@@ -158,7 +159,7 @@ console.log("classList: " + el.classList);
       return wrapper.appendChild(toWrap);
     }
 
-
+    // el.parentNode.appendChild(wrapper);
 
 })(config);
 
