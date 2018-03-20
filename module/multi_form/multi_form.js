@@ -1,9 +1,4 @@
-/*
-  config =  {
-    formName: '',
-    submitBtnName: ""
-  }
-*/
+
 var config = {
   formName:"SignupForm",
   submitBtnName: "SaveAccount",
@@ -58,8 +53,6 @@ var multiForm = (function(config){
         var stepEl = document.querySelector("#step" + i);
         hide(stepEl);
         createPrevButton(i);
-        // console.log("lastStep " + lastStep);
-        // container.insertAdjacentHTML('afterbegin', "<ul id='steps'></ul>");
 
       } else {
         var stepEl = document.querySelector("#step" + i);
@@ -148,11 +141,9 @@ var multiForm = (function(config){
 
     function hide(el){
       el.classList.add("d-none");
-      // el.style.display = "none";
     }
 
     function show(el){
-      // el.style.display = "block";
       el.classList.remove("d-none");
     }
 
